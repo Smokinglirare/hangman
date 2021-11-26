@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Start of Kunskapskontroll 2</title>
+    <script>
+      /* Fem ord ska finnas med i spelet. Dessa ord är
+      “Programmering”, “Stockholm”, “Studenter”, “Javascript” och “Afterwork”.
+      Notera att dessa ord är svenska och engelska, men använder endast ord
+      från det engelska alfabetet. */
+
+      /* Varje gång programmet startar så skall ett av dessa ord slumpartat
+      väljas, vilket sedan spelet baserar sin gång på. */
+
+      const words = [
+        "Programmering",
+        "Stockholm",
+        "Studenter",
+        "Javascript",
+        "Afterwork",
+      ];
+
+      const word = words[Math.floor(Math.random() * words.length)];
+      console.log(word);
+      
+      let tries = 5;
+      let answerArray = [];
+      for (let i = 0; i < word.length; i++) {
+        answerArray[i] = "_";
+      }
+      let remainingLetters = word.length;
+
+      while (remainingLetters > 0 || tries > 0) {
+        alert(answerArray.join(" "));
+        let guess = prompt(
+          "Gissa ordet!".toUpperCase() + " Återstående gissningar: " + tries
+        );
+        if (guess === null) {
+          break;
+        } else if (tries === 0) {
+          alert("Du har använt upp alla dina gissningar. Rätta ordet var " + word);
+          break;
+        } else if (answerArray.join("").toLowerCase() === word.toLowerCase()) {
+          alert(answerArray.join(" "));
+          alert("Snyggt! Ordet var " + word);
+          break;
+        } else if (guess.length !== 1) {
+          alert("Skriv enbart EN bokstav.");
+          tries = tries - 1;
+        } else if (!word.toLowerCase().includes(guess.toLowerCase())) {
+          tries = tries - 1;
+        } else {
+          for (let j = 0; j < word.length; j++) {
+            if (word[j].toLowerCase() === guess.toLowerCase()) {
+              answerArray[j] = guess;
+              remainingLetters--;
+            }
+          }
+        }
+      }
+      /*alert(answerArray.join(" "));
+      alert("Snyggt! Ordet var " + word);*/
+    </script>
+  </head>
+  <body></body>
+</html>
